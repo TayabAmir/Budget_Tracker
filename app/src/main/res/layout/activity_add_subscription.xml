@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Subscription"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"/>
+
+        <EditText
+            android:id="@+id/et_sub_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Subscription Name"
+            android:inputType="textCapWords" />
+
+        <EditText
+            android:id="@+id/et_sub_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Amount"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Billing Cycle"
+            android:layout_marginTop="16dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_billing_cycle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"/>
+
+        <EditText
+            android:id="@+id/et_next_billing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Next Billing Date (YYYY-MM-DD)"
+            android:focusable="false"
+            android:clickable="true"
+            android:layout_marginTop="8dp"/>
+
+        <EditText
+            android:id="@+id/et_sub_icon_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Icon URL"
+            android:layout_marginTop="8dp"/>
+
+        <CheckBox
+            android:id="@+id/cb_sub_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Currently Active"
+            android:checked="true"
+            android:layout_marginTop="16dp"/>
+
+        <Button
+            android:id="@+id/btn_save_sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Subscription"
+            android:layout_marginTop="24dp"/>
+
+    </LinearLayout>
+</ScrollView>

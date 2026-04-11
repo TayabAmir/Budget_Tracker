@@ -1,0 +1,6 @@
+com.cs173.myapplication.test.app-annotation-experimental-1.4.1-0 /home/ibraheem/.gradle/caches/9.1.0/transforms/7dda602f038bc93d45a1043337af60d0/transformed/annotation-experimental-1.4.1/res
+com.cs173.myapplication.test.app-core-1.5.0-1 /home/ibraheem/.gradle/caches/9.1.0/transforms/94a7457caf79caaae061a3e6b83b4a30/transformed/core-1.5.0/res
+com.cs173.myapplication.test.app-androidTest-2 /home/ibraheem/AndroidStudioProjects/MyApplication/app/build/generated/res/resValues/androidTest/debug
+com.cs173.myapplication.test.app-mergeDebugAndroidTestResources-3 /home/ibraheem/AndroidStudioProjects/MyApplication/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
+com.cs173.myapplication.test.app-mergeDebugAndroidTestResources-4 /home/ibraheem/AndroidStudioProjects/MyApplication/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
+com.cs173.myapplication.test.app-debugAndroidTest-5 /home/ibraheem/AndroidStudioProjects/MyApplication/app/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources

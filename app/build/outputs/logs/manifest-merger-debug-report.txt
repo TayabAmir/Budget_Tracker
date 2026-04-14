@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:2:1-30:12
-INJECTED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:2:1-30:12
-INJECTED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:2:1-30:12
-INJECTED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:2:1-30:12
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:2:1-45:12
 MERGED from [androidx.databinding:viewbinding:8.7.3] /home/ibraheem/.gradle/caches/9.1.0/transforms/10998249a1d9d017ac5939d663afd2a0/transformed/viewbinding-8.7.3/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.13.0] /home/ibraheem/.gradle/caches/9.1.0/transforms/f7acb22915a918c250af3f6ce535b331/transformed/material-1.13.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] /home/ibraheem/.gradle/caches/9.1.0/transforms/6d7e95b1062ff84c5f0b748e4593f428/transformed/constraintlayout-2.2.1/AndroidManifest.xml:2:1-9:12
@@ -81,9 +81,33 @@ MERGED from [androidx.arch.core:core-runtime:2.2.0] /home/ibraheem/.gradle/cache
 		INJECTED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:4:5-67
+	android:name
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:4:22-64
+uses-permission#android.permission.POST_NOTIFICATIONS
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:5:5-77
+	android:name
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:5:22-74
+uses-permission#android.permission.SCHEDULE_EXACT_ALARM
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:6:5-79
+	android:name
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:6:22-76
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:7:5-108
+	android:maxSdkVersion
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:7:79-105
+	android:name
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:7:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:8:5-107
+	android:maxSdkVersion
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:8:78-104
+	android:name
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:8:22-77
 application
-ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:4:5-28:19
-INJECTED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:4:5-28:19
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:10:5-43:19
+INJECTED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:10:5-43:19
 MERGED from [com.google.android.material:material:1.13.0] /home/ibraheem/.gradle/caches/9.1.0/transforms/f7acb22915a918c250af3f6ce535b331/transformed/material-1.13.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.13.0] /home/ibraheem/.gradle/caches/9.1.0/transforms/f7acb22915a918c250af3f6ce535b331/transformed/material-1.13.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] /home/ibraheem/.gradle/caches/9.1.0/transforms/6d7e95b1062ff84c5f0b748e4593f428/transformed/constraintlayout-2.2.1/AndroidManifest.xml:7:5-20
@@ -105,53 +129,69 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/ibrah
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.13.1] /home/ibraheem/.gradle/caches/9.1.0/transforms/b28ef9778717b0168ea1ce99b860d632/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:9:9-35
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:15:9-35
 	android:label
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:7:9-40
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:13:9-36
 	android:roundIcon
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:8:9-54
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:14:9-54
 	android:icon
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:6:9-43
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:12:9-43
 	android:allowBackup
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:5:9-35
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:11:9-35
 	android:theme
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:10:9-50
-activity#com.example.myapplication.SplashActivity
-ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:12:9-19:20
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:16:9-50
+	android:usesCleartextTraffic
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:17:9-44
+activity#com.cs173.myapplication.SplashActivity
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:19:9-27:20
 	android:exported
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:14:13-36
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:21:13-36
+	android:theme
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:22:13-69
 	android:name
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:13:13-68
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:20:13-43
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:15:13-18:29
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:23:13-26:29
 action#android.intent.action.MAIN
-ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:16:17-69
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:24:17-69
 	android:name
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:16:25-66
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:24:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:17:17-77
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:25:17-77
 	android:name
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:17:27-74
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:25:27-74
 activity#com.cs173.myapplication.MainActivity
-ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:21:9-73
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:29:9-50
 	android:name
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:21:19-70
-activity#com.cs173.myapplication.AddEditContactActivity
-ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:22:9-83
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:29:19-47
+activity#com.cs173.myapplication.AddExpenseActivity
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:30:9-56
 	android:name
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:22:19-80
-activity#com.cs173.myapplication.FullImageActivity
-ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:23:9-78
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:30:19-53
+activity#com.cs173.myapplication.AddSubscriptionActivity
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:31:9-61
 	android:name
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:23:19-75
-activity#com.example.myapplication.RegistrationActivity
-ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:25:9-83
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:31:19-58
+activity#com.cs173.myapplication.AddGoalActivity
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:32:9-53
 	android:name
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:25:19-80
-activity#com.example.myapplication.ConfirmationActivity
-ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:26:9-83
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:32:19-50
+receiver#com.cs173.myapplication.receiver.BillReminderReceiver
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:34:9-41:20
+	android:exported
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:36:13-36
 	android:name
-		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:26:19-80
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:35:13-58
+intent-filter#action:name:android.intent.action.DATE_CHANGED+action:name:com.smartbudget.BILL_REMINDER
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:37:13-40:29
+action#android.intent.action.DATE_CHANGED
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:38:17-77
+	android:name
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:38:25-74
+action#com.smartbudget.BILL_REMINDER
+ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:39:17-72
+	android:name
+		ADDED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:39:25-69
 uses-sdk
 INJECTED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/ibraheem/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml

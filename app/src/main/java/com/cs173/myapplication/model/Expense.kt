@@ -10,5 +10,6 @@ data class Expense(
     var date: String,
     var isRecurring: Boolean,
     var imageUrl: String,
-    var notes: String
+    var notes: String,
+    var recurringIntervalDays: Int = 0 // 0 means not recurring or custom
 ) : Serializable

@@ -11,7 +11,9 @@
     <color name="text_gray">#AAAAAA</color>
     <color name="text_white">#FFFFFF</color>
     <color name="white">#FFFFFF</color>
-    <string name="app_name">2023-CS-173</string>
+    <string name="app_name">SmartBudget</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
     <style name="CircleImage" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>

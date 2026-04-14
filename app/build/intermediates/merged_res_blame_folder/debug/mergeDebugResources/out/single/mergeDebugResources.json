@@ -1,31 +1,47 @@
 [
     {
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_item_detected_sub.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/item_detected_sub.xml"
+    },
+    {
         "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
         "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_item_contact.xml.flat",
-        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/item_contact.xml"
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/menu_bottom_nav_menu.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/menu/bottom_nav_menu.xml"
+    },
+    {
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_item_goal.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/item_goal.xml"
+    },
+    {
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_item_category_report.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/item_category_report.xml"
     },
     {
         "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/mipmap-xxhdpi_ic_launcher.webp.flat",
         "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/mipmap-xxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_activity_registration.xml.flat",
-        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/activity_registration.xml"
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_fragment_reports.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/fragment_reports.xml"
+    },
+    {
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_nav_header.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/nav_header.xml"
     },
     {
         "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/drawable_ic_launcher_foreground.xml.flat",
         "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/drawable/ic_launcher_foreground.xml"
     },
     {
-        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_activity_full_image.xml.flat",
-        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/activity_full_image.xml"
-    },
-    {
         "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/drawable_search_bg.xml.flat",
         "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/drawable/search_bg.xml"
+    },
+    {
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_activity_add_goal.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/activity_add_goal.xml"
     },
     {
         "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/mipmap-mdpi_ic_launcher.webp.flat",
@@ -52,12 +68,20 @@
         "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/activity_main.xml"
     },
     {
-        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_activity_confirmation.xml.flat",
-        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/activity_confirmation.xml"
-    },
-    {
         "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/mipmap-hdpi_ic_launcher_round.webp.flat",
         "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_activity_add_subscription.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/activity_add_subscription.xml"
+    },
+    {
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/menu_drawer_menu.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/menu/drawer_menu.xml"
+    },
+    {
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_activity_add_expense.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/activity_add_expense.xml"
     },
     {
         "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
@@ -72,20 +96,44 @@
         "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_activity_add_edit_contact.xml.flat",
-        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/activity_add_edit_contact.xml"
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_fragment_goals.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/fragment_goals.xml"
+    },
+    {
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_item_subscription.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/item_subscription.xml"
     },
     {
         "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/mipmap-xhdpi_ic_launcher.webp.flat",
         "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/xml_backup_rules.xml.flat",
-        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/xml/backup_rules.xml"
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_fragment_dashboard.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/fragment_dashboard.xml"
     },
     {
-        "merged": "com.cs173.myapplication.app-debug-59:/layout_activity_splash.xml.flat",
-        "source": "com.cs173.myapplication.app-main-61:/layout/activity_splash.xml"
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_fragment_subscriptions.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/fragment_subscriptions.xml"
+    },
+    {
+        "merged": "com.cs173.myapplication.app-debug-59:/layout_fragment_subscriptions.xml.flat",
+        "source": "com.cs173.myapplication.app-main-61:/layout/fragment_subscriptions.xml"
+    },
+    {
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_fragment_expenses.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/fragment_expenses.xml"
+    },
+    {
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/layout_item_expense.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/item_expense.xml"
+    },
+    {
+        "merged": "com.cs173.myapplication.app-debug-59:/layout_fragment_dashboard.xml.flat",
+        "source": "com.cs173.myapplication.app-main-61:/layout/fragment_dashboard.xml"
+    },
+    {
+        "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/xml_backup_rules.xml.flat",
+        "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/xml/backup_rules.xml"
     },
     {
         "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-debug-59:/mipmap-anydpi-v26_ic_launcher.xml.flat",

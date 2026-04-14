@@ -8,6 +8,16 @@
         android:minSdkVersion="24"
         android:targetSdkVersion="35" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
     <permission
         android:name="com.cs173.myapplication.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
@@ -20,13 +30,16 @@
         android:debuggable="true"
         android:extractNativeLibs="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="Contact Manager"
+        android:label="SmartBudget"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.App2023CS173" >
+        android:testOnly="true"
+        android:theme="@style/Theme.App2023CS173"
+        android:usesCleartextTraffic="true" >
         <activity
-            android:name="com.example.myapplication.SplashActivity"
-            android:exported="true" >
+            android:name="com.cs173.myapplication.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,10 +47,18 @@
             </intent-filter>
         </activity>
         <activity android:name="com.cs173.myapplication.MainActivity" />
-        <activity android:name="com.cs173.myapplication.AddEditContactActivity" />
-        <activity android:name="com.cs173.myapplication.FullImageActivity" />
-        <activity android:name="com.example.myapplication.RegistrationActivity" />
-        <activity android:name="com.example.myapplication.ConfirmationActivity" />
+        <activity android:name="com.cs173.myapplication.AddExpenseActivity" />
+        <activity android:name="com.cs173.myapplication.AddSubscriptionActivity" />
+        <activity android:name="com.cs173.myapplication.AddGoalActivity" />
+
+        <receiver
+            android:name="com.cs173.myapplication.receiver.BillReminderReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="com.smartbudget.BILL_REMINDER" />
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name="androidx.startup.InitializationProvider"

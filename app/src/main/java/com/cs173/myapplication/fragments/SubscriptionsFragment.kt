@@ -7,17 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cs173.myapplication.AddSubscriptionActivity
+import com.cs173.myapplication.AddExpenseActivity
 import com.cs173.myapplication.AppData
-import com.cs173.myapplication.R
-import com.cs173.myapplication.adapter.SubscriptionAdapter
+import com.cs173.myapplication.adapter.ExpenseAdapter
 import com.cs173.myapplication.databinding.FragmentSubscriptionsBinding
-import com.cs173.myapplication.model.Subscription
+import com.cs173.myapplication.model.Expense
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,8 +22,16 @@ class SubscriptionsFragment : Fragment() {
 
     private var _binding: FragmentSubscriptionsBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: SubscriptionAdapter
-    private var displayedSubs = ArrayList<Subscription>()
+    private lateinit var adapter: ExpenseAdapter
+    private var recurringExpenses = ArrayList<Expense>()
+
+    private val dayOptions = arrayOf(
+        "3 Days" to 3,
+        "7 Days" to 7,
+        "14 Days" to 14,
+        "30 Days" to 30,
+        "All Recurring" to 999
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,87 +44,78 @@ class SubscriptionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupRecyclerViews()
-        setupFilters()
-        detectRecurringExpenses()
-        applyFilters()
+        setupRecyclerView()
+        setupDayFilter()
+        updateList()
     }
 
-    private fun setupRecyclerViews() {
-        // Upcoming bills (next 7 days)
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val now = Calendar.getInstance()
-        val next7Days = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, 7) }
-
-        val upcoming = AppData.subscriptions.filter { sub ->
-            try {
-                val date = sdf.parse(sub.nextBillingDate)
-                date != null && date.after(now.time) && date.before(next7Days.time)
-            } catch (e: Exception) { false }
-        }
-        
-        val upcomingAdapter = SubscriptionAdapter(upcoming) { _, _ -> }
-        binding.rvUpcomingBills.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvUpcomingBills.adapter = upcomingAdapter
-
-        // Main List
-        adapter = SubscriptionAdapter(displayedSubs) { sub, isActive ->
-            sub.isActive = isActive
-            Toast.makeText(context, "${sub.name} is now ${if (isActive) "Active" else "Inactive"}", Toast.LENGTH_SHORT).show()
+    private fun setupRecyclerView() {
+        adapter = ExpenseAdapter(recurringExpenses) { expense ->
+            val intent = Intent(context, AddExpenseActivity::class.java)
+            intent.putExtra("expenseId", expense.id)
+            startActivity(intent)
         }
         binding.rvSubscriptions.layoutManager = LinearLayoutManager(context)
         binding.rvSubscriptions.adapter = adapter
     }
 
-    private fun setupFilters() {
-        val filters = arrayOf("All", "Active", "Inactive", "Monthly", "Yearly")
-        val filterAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, filters)
-        filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerSubFilter.adapter = filterAdapter
+    private fun setupDayFilter() {
+        val displayNames = dayOptions.map { it.first }
+        val dayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, displayNames)
+        dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerSubDays.adapter = dayAdapter
 
-        binding.spinnerSubFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                applyFilters()
+        binding.spinnerSubDays.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+                updateList()
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
     }
 
-    private fun applyFilters() {
-        val filter = binding.spinnerSubFilter.selectedItem.toString()
-        var filtered = AppData.subscriptions.toList()
+    private fun updateList() {
+        val selectedDays = dayOptions[binding.spinnerSubDays.selectedItemPosition].second
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val now = Calendar.getInstance()
+        
+        val limitCal = Calendar.getInstance()
+        limitCal.add(Calendar.DAY_OF_YEAR, selectedDays)
 
-        filtered = when (filter) {
-            "Active" -> filtered.filter { it.isActive }
-            "Inactive" -> filtered.filter { !it.isActive }
-            "Monthly" -> filtered.filter { it.billingCycle == "Monthly" }
-            "Yearly" -> filtered.filter { it.billingCycle == "Yearly" }
-            else -> filtered
+        val filtered = AppData.expenses.filter { it.isRecurring }.filter { expense ->
+            if (selectedDays == 999) return@filter true
+            
+            try {
+                val date = sdf.parse(expense.date)
+                if (date == null) return@filter false
+                
+                val expCal = Calendar.getInstance().apply { time = date }
+                
+                // If the expense date is in the past, calculate the "next" occurrence
+                while (expCal.before(now) && expense.recurringIntervalDays > 0) {
+                    expCal.add(Calendar.DAY_OF_YEAR, expense.recurringIntervalDays)
+                }
+                
+                expCal.after(now) && expCal.before(limitCal)
+            } catch (e: Exception) { false }
         }
 
-        displayedSubs.clear()
-        displayedSubs.addAll(filtered)
+        recurringExpenses.clear()
+        recurringExpenses.addAll(filtered)
         adapter.notifyDataSetChanged()
+
+        val total = recurringExpenses.sumOf { it.amount }
+        binding.tvSubSummary.text = "Total to pay in next ${dayOptions[binding.spinnerSubDays.selectedItemPosition].first}: Rs. $total"
+
+        if (recurringExpenses.isEmpty()) {
+            binding.tvEmptySubs.visibility = View.VISIBLE
+        } else {
+            binding.tvEmptySubs.visibility = View.GONE
+        }
     }
 
-    private fun detectRecurringExpenses() {
-        binding.llDetectedSubs.removeAllViews()
-        val recurringExpenses = AppData.expenses.filter { it.isRecurring }
-        val grouped = recurringExpenses.groupBy { it.title }
-
-        for ((title, list) in grouped) {
-            if (AppData.subscriptions.none { it.name.contains(title, true) }) {
-                val view = LayoutInflater.from(context).inflate(R.layout.item_detected_sub, binding.llDetectedSubs, false)
-                view.findViewById<TextView>(R.id.tv_detected_title).text = "We noticed you pay for $title recurringly"
-                view.findViewById<Button>(R.id.btn_add_detected).setOnClickListener {
-                    val intent = Intent(context, AddSubscriptionActivity::class.java)
-                    intent.putExtra("name", title)
-                    intent.putExtra("amount", list.firstOrNull()?.amount ?: 0.0)
-                    startActivity(intent)
-                }
-                binding.llDetectedSubs.addView(view)
-            }
-        }
+    override fun onResume() {
+        super.onResume()
+        updateList()
     }
 
     override fun onDestroyView() {

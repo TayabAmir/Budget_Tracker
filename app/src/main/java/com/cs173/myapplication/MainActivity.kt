@@ -19,6 +19,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Initialize AppData with persistent storage
+        AppData.init(this)
+        
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -102,6 +106,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Refresh balance if it changed
+        val headerView = binding.navView.getHeaderView(0)
+        val tvBalance = headerView.findViewById<TextView>(R.id.total_balance)
+        updateSidebarBalance(tvBalance)
     }
 
     override fun onBackPressed() {

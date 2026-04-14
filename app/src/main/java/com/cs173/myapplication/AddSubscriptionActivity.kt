@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cs173.myapplication.databinding.ActivityAddSubscriptionBinding
+import com.cs173.myapplication.model.Expense
 import com.cs173.myapplication.model.Subscription
 import com.cs173.myapplication.receiver.BillReminderReceiver
 import java.text.SimpleDateFormat
@@ -70,9 +71,18 @@ class AddSubscriptionActivity : AppCompatActivity() {
         val sub = Subscription(newId, name, amount, cycle, nextDate, iconUrl, isActive)
         
         AppData.subscriptions.add(sub)
+        
+        // Also add as a recurring expense automatically
+        val expId = (AppData.expenses.maxByOrNull { it.id }?.id ?: 0) + 1
+        val recurringExpense = Expense(expId, name, amount, 10, nextDate, true, iconUrl, "Subscription: $cycle")
+        AppData.expenses.add(recurringExpense)
+        
         scheduleReminder(sub)
+        
+        // Save to persistent storage
+        AppData.save(this)
 
-        Toast.makeText(this, "Subscription saved!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Subscription saved and added to expenses!", Toast.LENGTH_SHORT).show()
         sendBroadcast(Intent("com.smartbudget.UPDATE_DASHBOARD"))
         finish()
     }

@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cs173.myapplication.AddExpenseActivity
@@ -64,12 +63,18 @@ class ExpensesFragment : Fragment() {
         dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerDateFilter.adapter = dateAdapter
 
+        val sortOptions = arrayOf("Date (Newest)", "Date (Oldest)", "Amount (High to Low)", "Amount (Low to High)")
+        val sortAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, sortOptions)
+        sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerSort?.adapter = sortAdapter
+
         val listener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) { applyFilters() }
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
         binding.spinnerCategoryFilter.onItemSelectedListener = listener
         binding.spinnerDateFilter.onItemSelectedListener = listener
+        binding.spinnerSort?.onItemSelectedListener = listener
 
         binding.cbThisWeek.setOnCheckedChangeListener { _, _ -> applyFilters() }
         binding.cbThisMonth.setOnCheckedChangeListener { _, _ -> applyFilters() }
@@ -104,7 +109,6 @@ class ExpensesFragment : Fragment() {
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val now = Calendar.getInstance()
 
-        // Combine logic for checkboxes and spinner
         if (binding.cbThisMonth.isChecked || binding.spinnerDateFilter.selectedItem == "This Month") {
             filtered = filtered.filter { 
                 try {
@@ -125,14 +129,23 @@ class ExpensesFragment : Fragment() {
             }
         }
 
+        // Sorting
+        val sortPos = binding.spinnerSort?.selectedItemPosition ?: 0
+        filtered = when (sortPos) {
+            0 -> filtered.sortedByDescending { it.date }
+            1 -> filtered.sortedBy { it.date }
+            2 -> filtered.sortedByDescending { it.amount }
+            3 -> filtered.sortedBy { it.amount }
+            else -> filtered
+        }
+
         displayedExpenses.clear()
         displayedExpenses.addAll(filtered)
         adapter.notifyDataSetChanged()
 
-        // Empty state
         if (displayedExpenses.isEmpty()) {
             binding.tvEmptyState.visibility = View.VISIBLE
-            binding.tvEmptyState.text = if (query.isEmpty()) "No expenses yet. Tap + to add one!" else "No results matching \"$query\""
+            binding.tvEmptyState.text = if (query.isEmpty()) "No expenses yet." else "No results matching \"$query\""
         } else {
             binding.tvEmptyState.visibility = View.GONE
         }
@@ -150,12 +163,15 @@ class ExpensesFragment : Fragment() {
                     }
                     1 -> {
                         AppData.expenses.remove(expense)
+                        AppData.save(requireContext())
                         applyFilters()
                         Toast.makeText(context, "Expense deleted", Toast.LENGTH_SHORT).show()
                         requireContext().sendBroadcast(Intent("com.smartbudget.UPDATE_DASHBOARD"))
                     }
                     2 -> {
                         expense.isRecurring = !expense.isRecurring
+                        if (!expense.isRecurring) expense.recurringIntervalDays = 0
+                        AppData.save(requireContext())
                         applyFilters()
                         Toast.makeText(context, "Recurring updated", Toast.LENGTH_SHORT).show()
                     }
@@ -166,7 +182,7 @@ class ExpensesFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        applyFilters() // Refresh list when returning from Add/Edit
+        applyFilters()
     }
 
     override fun onDestroyView() {

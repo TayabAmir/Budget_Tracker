@@ -4,43 +4,59 @@ package com.cs173.myapplication.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.cs173.myapplication.R;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class ActivityMainBinding implements ViewBinding {
   @NonNull
-  private final ConstraintLayout rootView;
+  private final DrawerLayout rootView;
 
   @NonNull
-  public final EditText etSearch;
+  public final BottomNavigationView bottomNavigation;
+
+  @NonNull
+  public final DrawerLayout drawerLayout;
 
   @NonNull
   public final FloatingActionButton fabAdd;
 
   @NonNull
-  public final RecyclerView rvContacts;
+  public final FrameLayout fragmentContainer;
 
-  private ActivityMainBinding(@NonNull ConstraintLayout rootView, @NonNull EditText etSearch,
-      @NonNull FloatingActionButton fabAdd, @NonNull RecyclerView rvContacts) {
+  @NonNull
+  public final NavigationView navView;
+
+  @NonNull
+  public final MaterialToolbar toolbar;
+
+  private ActivityMainBinding(@NonNull DrawerLayout rootView,
+      @NonNull BottomNavigationView bottomNavigation, @NonNull DrawerLayout drawerLayout,
+      @NonNull FloatingActionButton fabAdd, @NonNull FrameLayout fragmentContainer,
+      @NonNull NavigationView navView, @NonNull MaterialToolbar toolbar) {
     this.rootView = rootView;
-    this.etSearch = etSearch;
+    this.bottomNavigation = bottomNavigation;
+    this.drawerLayout = drawerLayout;
     this.fabAdd = fabAdd;
-    this.rvContacts = rvContacts;
+    this.fragmentContainer = fragmentContainer;
+    this.navView = navView;
+    this.toolbar = toolbar;
   }
 
   @Override
   @NonNull
-  public ConstraintLayout getRoot() {
+  public DrawerLayout getRoot() {
     return rootView;
   }
 
@@ -65,25 +81,40 @@ public final class ActivityMainBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.etSearch;
-      EditText etSearch = ViewBindings.findChildViewById(rootView, id);
-      if (etSearch == null) {
+      id = R.id.bottom_navigation;
+      BottomNavigationView bottomNavigation = ViewBindings.findChildViewById(rootView, id);
+      if (bottomNavigation == null) {
         break missingId;
       }
 
-      id = R.id.fabAdd;
+      DrawerLayout drawerLayout = (DrawerLayout) rootView;
+
+      id = R.id.fab_add;
       FloatingActionButton fabAdd = ViewBindings.findChildViewById(rootView, id);
       if (fabAdd == null) {
         break missingId;
       }
 
-      id = R.id.rvContacts;
-      RecyclerView rvContacts = ViewBindings.findChildViewById(rootView, id);
-      if (rvContacts == null) {
+      id = R.id.fragment_container;
+      FrameLayout fragmentContainer = ViewBindings.findChildViewById(rootView, id);
+      if (fragmentContainer == null) {
         break missingId;
       }
 
-      return new ActivityMainBinding((ConstraintLayout) rootView, etSearch, fabAdd, rvContacts);
+      id = R.id.nav_view;
+      NavigationView navView = ViewBindings.findChildViewById(rootView, id);
+      if (navView == null) {
+        break missingId;
+      }
+
+      id = R.id.toolbar;
+      MaterialToolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
+        break missingId;
+      }
+
+      return new ActivityMainBinding((DrawerLayout) rootView, bottomNavigation, drawerLayout,
+          fabAdd, fragmentContainer, navView, toolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

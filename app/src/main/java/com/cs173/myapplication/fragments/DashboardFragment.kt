@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.cs173.myapplication.AppData
 import com.cs173.myapplication.adapter.ExpenseAdapter
 import com.cs173.myapplication.databinding.FragmentDashboardBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DashboardFragment : Fragment() {
 
@@ -36,7 +40,7 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        setupRecentExpenses()
+        setupBudgetLimit()
         updateUI()
 
         requireContext().registerReceiver(
@@ -44,6 +48,20 @@ class DashboardFragment : Fragment() {
             IntentFilter("com.smartbudget.UPDATE_DASHBOARD"),
             Context.RECEIVER_EXPORTED
         )
+    }
+
+    private fun setupBudgetLimit() {
+        binding.etBudgetLimit.setText(AppData.monthlyBudgetLimit.toString())
+        binding.etBudgetLimit.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                val limit = s.toString().toDoubleOrNull() ?: 0.0
+                AppData.monthlyBudgetLimit = limit
+                AppData.save(requireContext())
+                updateUI()
+            }
+        })
     }
 
     private fun setupRecentExpenses() {
@@ -54,29 +72,39 @@ class DashboardFragment : Fragment() {
     }
 
     private fun updateUI() {
-        val totalSpent = AppData.expenses.sumOf { it.amount }
-        binding.tvTotalSpent.text = "Rs. $totalSpent"
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val now = Calendar.getInstance()
+        val currentMonth = now.get(Calendar.MONTH)
+        val currentYear = now.get(Calendar.YEAR)
 
-        val totalLimit = AppData.categories.sumOf { it.limit }
-        if (totalSpent > totalLimit) {
-            binding.tvBudgetStatus.text = "Over Budget!"
+        val totalSpentThisMonth = AppData.expenses.filter {
+            try {
+                val d = sdf.parse(it.date)
+                val cal = Calendar.getInstance().apply { time = d }
+                cal.get(Calendar.MONTH) == currentMonth && cal.get(Calendar.YEAR) == currentYear
+            } catch (e: Exception) { false }
+        }.sumOf { it.amount }
+
+        binding.tvTotalSpent.text = "Rs. $totalSpentThisMonth"
+
+        if (totalSpentThisMonth > AppData.monthlyBudgetLimit) {
+            binding.tvBudgetStatus.text = "OVER BUDGET! Limit: Rs. ${AppData.monthlyBudgetLimit}"
             binding.tvBudgetStatus.setTextColor(android.graphics.Color.RED)
         } else {
-            binding.tvBudgetStatus.text = "Within Budget"
+            val remaining = AppData.monthlyBudgetLimit - totalSpentThisMonth
+            binding.tvBudgetStatus.text = "Within Budget (Rs. $remaining left)"
             binding.tvBudgetStatus.setTextColor(android.graphics.Color.parseColor("#4CAF50"))
         }
 
-        binding.tvActiveSubs.text = AppData.subscriptions.count { it.isActive }.toString()
-        binding.tvGoalsProgress.text = AppData.goals.count { it.savedAmount < it.targetAmount }.toString()
-        binding.tvTotalCount.text = (AppData.expenses.size + AppData.subscriptions.size).toString()
-        
         binding.pieChart.invalidate()
         setupRecentExpenses()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        requireContext().unregisterReceiver(refreshReceiver)
+        try {
+            requireContext().unregisterReceiver(refreshReceiver)
+        } catch (e: Exception) {}
         _binding = null
     }
 }

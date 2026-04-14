@@ -26,20 +26,20 @@ class AddGoalActivity : AppCompatActivity() {
     }
 
     private fun setupDatePicker() {
-        binding.et_goal_deadline.setOnClickListener {
+        binding.etGoalDeadline.setOnClickListener {
             val c = Calendar.getInstance()
             DatePickerDialog(this, { _, year, month, day ->
-                binding.et_goal_deadline.setText(String.format("%d-%02d-%02d", year, month + 1, day))
+                binding.etGoalDeadline.setText(String.format("%d-%02d-%02d", year, month + 1, day))
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show()
         }
     }
 
     private fun saveGoal() {
-        val name = binding.et_goal_name.text.toString()
-        val targetStr = binding.et_target_amount.text.toString()
-        val savedStr = binding.et_saved_amount.text.toString()
-        val deadline = binding.et_goal_deadline.text.toString()
-        val imageUrl = binding.et_goal_image_url.text.toString()
+        val name = binding.etGoalName.text.toString()
+        val targetStr = binding.etTargetAmount.text.toString()
+        val savedStr = binding.etSavedAmount.text.toString()
+        val deadline = binding.etGoalDeadline.text.toString()
+        val imageUrl = binding.etGoalImageUrl.text.toString()
 
         if (name.isEmpty() || targetStr.isEmpty() || deadline.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()

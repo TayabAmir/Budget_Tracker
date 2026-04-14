@@ -1,6 +1,5 @@
 package com.cs173.myapplication.fragments
 
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.pdf.PdfDocument
 import android.os.Bundle
@@ -65,7 +64,8 @@ class ReportsFragment : Fragment() {
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
         val monthlyExpenses = AppData.expenses.filter {
-            val date = sdf.parse(it.date)
+            val date = try { sdf.parse(it.date) } catch (e: Exception) { null }
+            if (date == null) return@filter false
             val cal = Calendar.getInstance().apply { time = date }
             cal.get(Calendar.MONTH) == month && cal.get(Calendar.YEAR) == year
         }
@@ -82,14 +82,14 @@ class ReportsFragment : Fragment() {
         val categoryGroups = monthlyExpenses.groupBy { it.categoryId }
         val topCatId = categoryGroups.maxByOrNull { it.value.sumOf { e -> e.amount } }?.key
         val topCatName = AppData.categories.find { it.id == topCatId }?.name ?: "None"
-        binding.tvReportTop_cat.text = topCatName
+        binding.tvReportTopCat.text = topCatName
 
         // Category Breakdown List
         binding.llCategoryBreakdown.removeAllViews()
         for (category in AppData.categories) {
             val spent = monthlyExpenses.filter { it.categoryId == category.id }.sumOf { it.amount }
             if (spent > 0) {
-                val percent = (spent / totalSpent * 100).toInt()
+                val percent = if (totalSpent > 0) (spent / totalSpent * 100).toInt() else 0
                 val row = LayoutInflater.from(context).inflate(R.layout.item_category_report, binding.llCategoryBreakdown, false)
                 row.findViewById<TextView>(R.id.tv_cat_name).text = category.name
                 row.findViewById<TextView>(R.id.tv_cat_amount).text = "Rs. $spent ($percent%)"

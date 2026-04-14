@@ -3786,9 +3786,10 @@ id cache_measures
 id callMeasure
 id cancel_button
 id carryVelocity
+id cb_active_status
 id cb_is_active
 id cb_recurring
-id cb_recurring_only
+id cb_recurring_active
 id cb_sub_active
 id cb_this_month
 id cb_this_week
@@ -3966,6 +3967,8 @@ id listMode
 id list_item
 id ll_bar_container
 id ll_category_breakdown
+id ll_recurring_options
+id ll_stop_date
 id m3_side_sheet
 id marquee
 id masked
@@ -4103,10 +4106,13 @@ id progress_circular
 id progress_horizontal
 id radio
 id ratio
+id rb_stop_next_month
+id rb_stop_this_month
 id rectangles
 id report_drawn
 id retreat
 id reverseSawtooth
+id rg_stop_option
 id right
 id rightToLeft
 id right_icon
@@ -4158,6 +4164,7 @@ id snapMargins
 id south
 id spacer
 id special_effects_controller_view_tag
+id spinner_active_filter
 id spinner_billing_cycle
 id spinner_category
 id spinner_category_filter

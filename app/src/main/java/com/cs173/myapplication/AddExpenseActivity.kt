@@ -49,12 +49,16 @@ class AddExpenseActivity : AppCompatActivity() {
             binding.tvTitleScreen.text = "Edit Expense"
             binding.btnSave.text = "Update Expense"
             loadExpenseData()
+        } else {
+            // Default date for new expense
+            binding.etDate.setText(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()))
         }
 
         binding.cbRecurring.setOnCheckedChangeListener { _, isChecked ->
-            binding.spinnerBillingCycle.isEnabled = isChecked
-            if (!isChecked) {
-                binding.spinnerBillingCycle.setSelection(0)
+            binding.llRecurringOptions.visibility = if (isChecked) View.VISIBLE else View.GONE
+            if (isChecked) {
+                // If checking recurring for the first time, default to active
+                binding.cbRecurringActive.isChecked = true
             }
         }
 
@@ -86,7 +90,6 @@ class AddExpenseActivity : AppCompatActivity() {
             val c = Calendar.getInstance()
             DatePickerDialog(this, { _, year, month, day ->
                 binding.etDate.setText(String.format("%d-%02d-%02d", year, month + 1, day))
-                binding.etDate.error = null
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show()
         }
     }
@@ -94,14 +97,20 @@ class AddExpenseActivity : AppCompatActivity() {
     private fun setupImageSearch() {
         binding.btnGoogleImages.setOnClickListener {
             val query = binding.etTitle.text.toString().trim()
-            val url = if (query.isNotEmpty()) {
-                "https://www.google.com/search?tbm=isch&q=${Uri.encode(query + " logo direct link")}"
-            } else {
-                "https://images.google.com"
+            if (query.isEmpty()) {
+                Toast.makeText(this, "Enter a title first", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
-            Toast.makeText(this, "Tip: Long press image and 'Copy image address'", Toast.LENGTH_LONG).show()
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            startActivity(intent)
+            // Use a search query that encourages direct image links
+            val url = "https://www.google.com/search?q=${Uri.encode(query + " logo png direct link")}&tbm=isch"
+            
+            AlertDialog.Builder(this)
+                .setTitle("Getting Image URL")
+                .setMessage("1. Find image\n2. Long press image\n3. Select 'Open image in new tab'\n4. Copy URL from browser address bar\n5. Paste it here")
+                .setPositiveButton("Search") { _, _ ->
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                }
+                .show()
         }
 
         binding.etImageUrl.addTextChangedListener(object : TextWatcher {
@@ -115,8 +124,6 @@ class AddExpenseActivity : AppCompatActivity() {
                         .placeholder(android.R.drawable.ic_menu_gallery)
                         .error(android.R.drawable.stat_notify_error)
                         .into(binding.ivPreview)
-                } else {
-                    binding.ivPreview.setImageResource(android.R.drawable.ic_menu_gallery)
                 }
             }
         })
@@ -130,12 +137,11 @@ class AddExpenseActivity : AppCompatActivity() {
             binding.etDate.setText(it.date)
             binding.etNotes.setText(it.notes)
             binding.cbRecurring.isChecked = it.isRecurring
+            binding.cbRecurringActive.isChecked = it.isRecurringActive
             binding.etImageUrl.setText(it.imageUrl)
             
             val intervalIndex = intervalOptions.indexOfFirst { opt -> opt.second == it.recurringIntervalDays }
-            if (intervalIndex != -1) {
-                binding.spinnerBillingCycle.setSelection(intervalIndex)
-            }
+            if (intervalIndex != -1) binding.spinnerBillingCycle.setSelection(intervalIndex)
 
             if (it.imageUrl.isNotEmpty()) {
                 Glide.with(this).load(it.imageUrl).into(binding.ivPreview)
@@ -149,60 +155,33 @@ class AddExpenseActivity : AppCompatActivity() {
     private fun saveExpense() {
         val title = binding.etTitle.text.toString().trim()
         val amountStr = binding.etAmount.text.toString().trim()
-        val date = binding.etDate.text.toString().trim()
+        var date = binding.etDate.text.toString().trim()
         val notes = binding.etNotes.text.toString()
         val isRecurring = binding.cbRecurring.isChecked
+        val isRecurringActive = binding.cbRecurringActive.isChecked
         val imageUrl = binding.etImageUrl.text.toString().trim()
         val recurringInterval = if (isRecurring) intervalOptions[binding.spinnerBillingCycle.selectedItemPosition].second else 0
 
-        var isValid = true
-        if (title.isEmpty()) {
-            binding.etTitle.error = "Title is required"
-            isValid = false
+        if (title.isEmpty() || amountStr.isEmpty() || date.isEmpty()) {
+            Toast.makeText(this, "Please fill required fields", Toast.LENGTH_SHORT).show()
+            return
         }
-        if (amountStr.isEmpty()) {
-            binding.etAmount.error = "Amount is required"
-            isValid = false
-        }
-        if (date.isEmpty()) {
-            binding.etDate.error = "Date is required"
-            isValid = false
-        }
-
-        if (!isValid) return
 
         val amount = amountStr.toDoubleOrNull() ?: 0.0
 
-        // Budget Check
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val currentMonth = Calendar.getInstance().get(Calendar.MONTH)
-        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        
-        val totalSpentThisMonth = AppData.expenses.filter {
-            try {
-                val d = sdf.parse(it.date)
-                val cal = Calendar.getInstance().apply { time = d }
-                cal.get(Calendar.MONTH) == currentMonth && cal.get(Calendar.YEAR) == currentYear
-            } catch (e: Exception) { false }
-        }.sumOf { it.amount }
-
-        if (totalSpentThisMonth + amount > AppData.monthlyBudgetLimit) {
-            AlertDialog.Builder(this)
-                .setTitle("Budget Limit Reached")
-                .setMessage("Adding this expense will exceed your monthly limit of Rs. ${AppData.monthlyBudgetLimit}. Please increase your limit in the dashboard or adjust the amount.")
-                .setPositiveButton("OK", null)
-                .show()
-            return
+        // "Real-world" logic: If making it active now, ensure the charge is recorded for today
+        if (isRecurring && isRecurringActive && expenseId == -1) {
+            date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         }
 
         if (expenseId == -1) {
             val newId = (AppData.expenses.maxByOrNull { it.id }?.id ?: 0) + 1
-            val newExpense = Expense(newId, title, amount, selectedCategoryId, date, isRecurring, imageUrl, notes, recurringInterval)
+            val newExpense = Expense(newId, title, amount, selectedCategoryId, date, isRecurring, imageUrl, notes, recurringInterval, isRecurringActive)
             AppData.expenses.add(newExpense)
         } else {
             val index = AppData.expenses.indexOfFirst { it.id == expenseId }
             if (index != -1) {
-                val updated = Expense(expenseId, title, amount, selectedCategoryId, date, isRecurring, imageUrl, notes, recurringInterval)
+                val updated = Expense(expenseId, title, amount, selectedCategoryId, date, isRecurring, imageUrl, notes, recurringInterval, isRecurringActive)
                 AppData.expenses[index] = updated
             }
         }

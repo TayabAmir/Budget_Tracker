@@ -3785,9 +3785,10 @@ int id cache_measures 0x7f080076
 int id callMeasure 0x7f080077
 int id cancel_button 0x7f080078
 int id carryVelocity 0x7f080079
+int id cb_active_status 0x7f08027f
 int id cb_is_active 0x7f08007a
 int id cb_recurring 0x7f08007b
-int id cb_recurring_only 0x7f08007c
+int id cb_recurring_active 0x7f080278
 int id cb_sub_active 0x7f08007d
 int id cb_this_month 0x7f08007e
 int id cb_this_week 0x7f08007f
@@ -3965,6 +3966,8 @@ int id listMode 0x7f080129
 int id list_item 0x7f08012a
 int id ll_bar_container 0x7f08012b
 int id ll_category_breakdown 0x7f08012c
+int id ll_recurring_options 0x7f080279
+int id ll_stop_date 0x7f08027a
 int id m3_side_sheet 0x7f08012e
 int id marquee 0x7f08012f
 int id masked 0x7f080130
@@ -4102,10 +4105,13 @@ int id progress_circular 0x7f0801b3
 int id progress_horizontal 0x7f0801b4
 int id radio 0x7f0801b5
 int id ratio 0x7f0801b6
+int id rb_stop_next_month 0x7f08027b
+int id rb_stop_this_month 0x7f08027c
 int id rectangles 0x7f0801b7
 int id report_drawn 0x7f0801b8
 int id retreat 0x7f0801b9
 int id reverseSawtooth 0x7f0801ba
+int id rg_stop_option 0x7f08027d
 int id right 0x7f0801bb
 int id rightToLeft 0x7f0801bc
 int id right_icon 0x7f0801bd
@@ -4157,6 +4163,7 @@ int id snapMargins 0x7f0801eb
 int id south 0x7f0801ec
 int id spacer 0x7f0801ed
 int id special_effects_controller_view_tag 0x7f0801ee
+int id spinner_active_filter 0x7f08027e
 int id spinner_billing_cycle 0x7f0801ef
 int id spinner_category 0x7f0801f0
 int id spinner_category_filter 0x7f0801f1

@@ -11,5 +11,7 @@ data class Expense(
     var isRecurring: Boolean,
     var imageUrl: String,
     var notes: String,
-    var recurringIntervalDays: Int = 0 // 0 means not recurring or custom
+    var recurringIntervalDays: Int = 0,
+    var isRecurringActive: Boolean = true,
+    var stopDate: String? = null // YYYY-MM-DD when it should stop being recurring
 ) : Serializable

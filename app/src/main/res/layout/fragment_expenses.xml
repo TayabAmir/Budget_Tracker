@@ -3,14 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/bg_black">
 
     <SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
-        android:queryHint="Search by title..." />
+        android:queryHint="Search by title..."
+        android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,13 +24,15 @@
             android:id="@+id/spinner_category_filter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"/>
 
         <Spinner
             android:id="@+id/spinner_date_filter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"/>
     </LinearLayout>
 
     <LinearLayout
@@ -42,12 +46,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sort:"
+            android:textColor="@color/white"
             android:layout_marginEnd="8dp"/>
 
         <Spinner
             android:id="@+id/spinner_sort"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"/>
     </LinearLayout>
 
     <LinearLayout
@@ -60,19 +66,20 @@
             android:id="@+id/cb_this_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Week" />
+            android:text="Week"
+            android:textColor="@color/white"
+            android:buttonTint="@color/accent" />
 
         <CheckBox
             android:id="@+id/cb_this_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Month" />
+            android:text="Month"
+            android:textColor="@color/white"
+            android:buttonTint="@color/accent"
+            android:layout_marginStart="8dp"/>
 
-        <CheckBox
-            android:id="@+id/cb_recurring_only"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Recurring" />
+        <!-- Recurring filter removed as requested -->
     </LinearLayout>
 
     <FrameLayout
@@ -91,6 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="No expenses found"
+            android:textColor="@color/text_gray"
             android:visibility="gone" />
     </FrameLayout>
 

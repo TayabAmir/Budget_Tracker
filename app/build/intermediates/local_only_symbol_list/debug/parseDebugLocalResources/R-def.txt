@@ -25,9 +25,10 @@ id btn_prev_month
 id btn_save
 id btn_save_goal
 id btn_save_sub
+id cb_active_status
 id cb_is_active
 id cb_recurring
-id cb_recurring_only
+id cb_recurring_active
 id cb_sub_active
 id cb_this_month
 id cb_this_week
@@ -57,6 +58,8 @@ id iv_preview
 id iv_sub_icon
 id ll_bar_container
 id ll_category_breakdown
+id ll_recurring_options
+id ll_stop_date
 id nav_about
 id nav_dashboard
 id nav_expenses
@@ -71,11 +74,15 @@ id nav_subscriptions
 id nav_view
 id pb_goal_progress
 id pie_chart
+id rb_stop_next_month
+id rb_stop_this_month
+id rg_stop_option
 id rv_expenses
 id rv_goals
 id rv_recent_expenses
 id rv_subscriptions
 id search_view
+id spinner_active_filter
 id spinner_billing_cycle
 id spinner_category
 id spinner_category_filter

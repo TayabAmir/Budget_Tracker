@@ -78,7 +78,7 @@ class ExpensesFragment : Fragment() {
 
         binding.cbThisWeek.setOnCheckedChangeListener { _, _ -> applyFilters() }
         binding.cbThisMonth.setOnCheckedChangeListener { _, _ -> applyFilters() }
-        binding.cbRecurringOnly.setOnCheckedChangeListener { _, _ -> applyFilters() }
+        // Recurring checkbox logic removed from here as it's removed from layout
     }
 
     private fun setupSearch() {
@@ -100,10 +100,6 @@ class ExpensesFragment : Fragment() {
         if (selectedCategory != "All Categories") {
             val categoryId = AppData.categories.find { it.name == selectedCategory }?.id
             filtered = filtered.filter { it.categoryId == categoryId }
-        }
-
-        if (binding.cbRecurringOnly.isChecked) {
-            filtered = filtered.filter { it.isRecurring }
         }
 
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -154,7 +150,7 @@ class ExpensesFragment : Fragment() {
     private fun showExpenseOptions(expense: Expense) {
         AlertDialog.Builder(requireContext())
             .setTitle(expense.title)
-            .setItems(arrayOf("Edit", "Delete", "Toggle Recurring")) { _, which ->
+            .setItems(arrayOf("Edit", "Delete")) { _, which ->
                 when (which) {
                     0 -> {
                         val intent = Intent(context, AddExpenseActivity::class.java)
@@ -167,13 +163,6 @@ class ExpensesFragment : Fragment() {
                         applyFilters()
                         Toast.makeText(context, "Expense deleted", Toast.LENGTH_SHORT).show()
                         requireContext().sendBroadcast(Intent("com.smartbudget.UPDATE_DASHBOARD"))
-                    }
-                    2 -> {
-                        expense.isRecurring = !expense.isRecurring
-                        if (!expense.isRecurring) expense.recurringIntervalDays = 0
-                        AppData.save(requireContext())
-                        applyFilters()
-                        Toast.makeText(context, "Recurring updated", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_black">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,6 +17,7 @@
             android:text="Add New Expense"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="@color/white"
             android:layout_marginBottom="16dp"/>
 
         <EditText
@@ -23,6 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Title"
+            android:textColor="@color/white"
+            android:textColorHint="@color/text_gray"
             android:inputType="textCapWords" />
 
         <EditText
@@ -30,6 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Amount"
+            android:textColor="@color/white"
+            android:textColorHint="@color/text_gray"
             android:inputType="numberDecimal"
             android:layout_marginTop="8dp"/>
 
@@ -38,6 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Date (YYYY-MM-DD)"
+            android:textColor="@color/white"
+            android:textColorHint="@color/text_gray"
             android:focusable="false"
             android:clickable="true"
             android:layout_marginTop="8dp"/>
@@ -46,33 +54,93 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Category"
+            android:textColor="@color/accent"
             android:layout_marginTop="16dp"/>
 
         <Spinner
             android:id="@+id/spinner_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="4dp"
+            android:backgroundTint="@color/white"/>
 
         <CheckBox
             android:id="@+id/cb_recurring"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Recurring expense?"
+            android:textColor="@color/white"
+            android:buttonTint="@color/accent"
             android:layout_marginTop="16dp"/>
 
-        <Spinner
-            android:id="@+id/spinner_billing_cycle"
+        <LinearLayout
+            android:id="@+id/ll_recurring_options"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:enabled="false"/>
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <Spinner
+                android:id="@+id/spinner_billing_cycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:backgroundTint="@color/white"/>
+
+            <CheckBox
+                android:id="@+id/cb_recurring_active"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Active Subscription"
+                android:textColor="@color/white"
+                android:buttonTint="@color/accent"
+                android:checked="true"
+                android:layout_marginTop="8dp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_stop_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="End recurring on:"
+                    android:textColor="@color/text_gray"
+                    android:layout_marginTop="8dp"/>
+
+                <RadioGroup
+                    android:id="@+id/rg_stop_option"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/rb_stop_this_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="This Month"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/accent"/>
+                    <RadioButton
+                        android:id="@+id/rb_stop_next_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Next Month"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/accent"/>
+                </RadioGroup>
+            </LinearLayout>
+        </LinearLayout>
 
         <EditText
             android:id="@+id/et_notes"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:hint="Notes"
+            android:textColor="@color/white"
+            android:textColorHint="@color/text_gray"
             android:gravity="top"
             android:inputType="textMultiLine"
             android:scrollbars="vertical"
@@ -89,7 +157,8 @@
                 android:id="@+id/btn_google_images"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Search Google"/>
+                android:text="Search Logo"
+                android:backgroundTint="@color/primary"/>
 
             <EditText
                 android:id="@+id/et_image_url"
@@ -97,6 +166,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Paste Image URL"
+                android:textColor="@color/white"
+                android:textColorHint="@color/text_gray"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
 
@@ -106,13 +177,15 @@
             android:layout_height="150dp"
             android:scaleType="centerInside"
             android:layout_marginTop="8dp"
-            android:background="#EEEEEE"/>
+            android:background="@color/gray_700"/>
 
         <Button
             android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Save Expense"
+            android:backgroundTint="@color/accent"
+            android:textColor="@color/black"
             android:layout_marginTop="24dp"/>
 
     </LinearLayout>

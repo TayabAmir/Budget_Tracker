@@ -12,12 +12,12 @@
         "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/item_category_report.xml"
     },
     {
-        "merged": "com.cs173.myapplication.app-mergeDebugResources-58:/layout/fragment_dashboard.xml",
-        "source": "com.cs173.myapplication.app-main-61:/layout/fragment_dashboard.xml"
-    },
-    {
         "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-mergeDebugResources-58:/layout/activity_main.xml",
         "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.cs173.myapplication.app-mergeDebugResources-58:/layout/item_expense.xml",
+        "source": "com.cs173.myapplication.app-main-61:/layout/item_expense.xml"
     },
     {
         "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-mergeDebugResources-58:/layout/fragment_subscriptions.xml",
@@ -38,10 +38,6 @@
     {
         "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-mergeDebugResources-58:/layout/activity_splash.xml",
         "source": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-main-61:/layout/activity_splash.xml"
-    },
-    {
-        "merged": "com.cs173.myapplication.app-mergeDebugResources-58:/layout/fragment_subscriptions.xml",
-        "source": "com.cs173.myapplication.app-main-61:/layout/fragment_subscriptions.xml"
     },
     {
         "merged": "/home/ibraheem/.gradle/daemon/9.1.0/com.cs173.myapplication.app-mergeDebugResources-58:/layout/item_detected_sub.xml",

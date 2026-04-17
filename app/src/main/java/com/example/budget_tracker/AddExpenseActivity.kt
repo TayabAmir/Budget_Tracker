@@ -28,28 +28,49 @@ class AddExpenseActivity : AppCompatActivity() {
     }
 
     private fun saveExpense() {
-        val title = binding.etTitle.text.toString()
-        val amountStr = binding.etAmount.text.toString()
+        val title = binding.etTitle.text.toString().trim()
+        val amountStr = binding.etAmount.text.toString().trim()
         val category = binding.spinnerCategory.selectedItem.toString()
         val isSubscription = binding.cbIsSubscription.isChecked
-        val imageUrl = binding.etImageUrl.text.toString()
+        val imageUrl = binding.etImageUrl.text.toString().trim()
 
-        if (title.isEmpty() || amountStr.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+        if (title.isEmpty()) {
+            Toast.makeText(this, getString(R.string.expense_title_required_error), Toast.LENGTH_SHORT).show()
             return
         }
 
-        val amount = amountStr.toDouble()
+        if (amountStr.isEmpty()) {
+            Toast.makeText(this, getString(R.string.expense_amount_required_error), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val amount = amountStr.toDoubleOrNull()
+        if (amount == null || amount <= 0.0) {
+            Toast.makeText(this, getString(R.string.expense_amount_invalid_error), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val normalizedImageUrl = if (imageUrl.isBlank()) {
+            null
+        } else {
+            ImageUrlUtils.normalizeGoogleImageUrl(imageUrl)
+        }
+
+        if (imageUrl.isNotBlank() && normalizedImageUrl == null) {
+            Toast.makeText(this, getString(R.string.invalid_google_image_url), Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         val id = (DataManager.expenses.size + 1)
 
-        val newExpense = Expense(id, title, amount, category, date, if(imageUrl.isNotEmpty()) imageUrl else null)
+        val newExpense = Expense(id, title, amount, category, date, normalizedImageUrl)
         DataManager.addExpense(newExpense)
 
         if (isSubscription) {
             val subId = (DataManager.subscriptions.size + 1)
-            val newSub = Subscription(subId, title, amount, "Monthly", "2023-11-25", if(imageUrl.isNotEmpty()) imageUrl else null)
-            DataManager.subscriptions.add(newSub)
+            val newSub = Subscription(subId, title, amount, "Monthly", date, normalizedImageUrl)
+            DataManager.addSubscription(newSub)
             Toast.makeText(this, "Subscription added too!", Toast.LENGTH_SHORT).show()
         }
 

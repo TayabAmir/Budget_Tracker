@@ -45,6 +45,15 @@ class ExpensesFragment : Fragment() {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (::adapter.isInitialized) {
+            val query = binding.etSearch.text?.toString().orEmpty()
+            val filtered = DataManager.getFilteredExpenses(query)
+            adapter.updateData(filtered)
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -70,12 +79,16 @@ class ExpensesFragment : Fragment() {
             holder.binding.tvExpenseTitle.text = expense.title
             holder.binding.tvExpenseCategory.text = expense.category
             holder.binding.tvExpenseAmount.text = "$${expense.amount}"
-            
-            if (!expense.imageUrl.isNullOrEmpty()) {
+
+            val imageUrl = ImageUrlUtils.normalizeGoogleImageUrl(expense.imageUrl)
+            if (!imageUrl.isNullOrEmpty()) {
                 Glide.with(holder.itemView.context)
-                    .load(expense.imageUrl)
+                    .load(imageUrl)
                     .placeholder(android.R.drawable.ic_menu_report_image)
+                    .error(android.R.drawable.ic_menu_report_image)
                     .into(holder.binding.ivExpenseIcon)
+            } else {
+                holder.binding.ivExpenseIcon.setImageResource(android.R.drawable.ic_menu_report_image)
             }
         }
 

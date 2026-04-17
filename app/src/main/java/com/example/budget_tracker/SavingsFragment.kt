@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.budget_tracker.databinding.FragmentSavingsBinding
 import com.example.budget_tracker.databinding.ItemSavingsBinding
 
@@ -14,6 +15,7 @@ class SavingsFragment : Fragment() {
 
     private var _binding: FragmentSavingsBinding? = null
     private val binding get() = _binding!!
+    private lateinit var adapter: SavingsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,8 +29,16 @@ class SavingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter = SavingsAdapter(DataManager.savingsGoals)
         binding.rvSavings.layoutManager = LinearLayoutManager(context)
-        binding.rvSavings.adapter = SavingsAdapter(DataManager.savingsGoals)
+        binding.rvSavings.adapter = adapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (::adapter.isInitialized) {
+            adapter.notifyDataSetChanged()
+        }
     }
 
     override fun onDestroyView() {
@@ -52,6 +62,17 @@ class SavingsFragment : Fragment() {
             holder.binding.tvSavingsProgress.text = "$${goal.currentAmount} / $${goal.targetAmount}"
             val progress = ((goal.currentAmount / goal.targetAmount) * 100).toInt()
             holder.binding.pbSavings.progress = progress
+
+            val imageUrl = ImageUrlUtils.normalizeGoogleImageUrl(goal.imageUrl)
+            if (!imageUrl.isNullOrEmpty()) {
+                Glide.with(holder.itemView.context)
+                    .load(imageUrl)
+                    .placeholder(android.R.drawable.ic_menu_save)
+                    .error(android.R.drawable.ic_menu_save)
+                    .into(holder.binding.ivGoalIcon)
+            } else {
+                holder.binding.ivGoalIcon.setImageResource(android.R.drawable.ic_menu_save)
+            }
         }
 
         override fun getItemCount() = goals.size

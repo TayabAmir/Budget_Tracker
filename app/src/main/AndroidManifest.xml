@@ -30,9 +30,33 @@
             android:theme="@style/Theme.Budget_Tracker.NoActionBar" />
 
         <activity
+            android:name=".SignInActivity"
+            android:exported="false"
+            android:label="@string/sign_in_title"
+            android:theme="@style/Theme.Budget_Tracker" />
+
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false"
+            android:label="@string/sign_up_title"
+            android:theme="@style/Theme.Budget_Tracker" />
+
+        <activity
             android:name=".AddExpenseActivity"
             android:exported="false"
             android:label="Add Expense"
+            android:theme="@style/Theme.Budget_Tracker" />
+
+        <activity
+            android:name=".AddSubscriptionActivity"
+            android:exported="false"
+            android:label="@string/add_subscription_title"
+            android:theme="@style/Theme.Budget_Tracker" />
+
+        <activity
+            android:name=".AddSavingsGoalActivity"
+            android:exported="false"
+            android:label="@string/add_savings_goal_title"
             android:theme="@style/Theme.Budget_Tracker" />
 
         <receiver android:name=".NotificationReceiver" android:exported="false" />

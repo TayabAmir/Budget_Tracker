@@ -2,6 +2,13 @@ package com.example.budget_tracker
 
 import java.io.Serializable
 
+data class AppUser(
+    val id: Int,
+    val username: String,
+    val email: String,
+    val password: String
+) : Serializable
+
 data class Expense(
     val id: Int,
     val title: String,

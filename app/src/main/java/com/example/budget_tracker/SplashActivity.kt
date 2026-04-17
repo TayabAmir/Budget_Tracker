@@ -13,7 +13,12 @@ class SplashActivity : AppCompatActivity() {
 
         // Splash screen delay
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
+            val destination = if (DataManager.isSignedIn()) {
+                MainActivity::class.java
+            } else {
+                SignInActivity::class.java
+            }
+            val intent = Intent(this, destination)
             startActivity(intent)
             finish()
         }, 2000)

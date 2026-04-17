@@ -1,3 +1,64 @@
 <resources>
     <string name="app_name">Budget_Tracker</string>
+    <string name="sign_in_title">Sign In</string>
+    <string name="sign_up_title">Sign Up</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="create_account">Create Account</string>
+    <string name="go_to_sign_up">Do not have an account? Sign Up</string>
+    <string name="go_to_sign_in">Already have an account? Sign In</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="create_profile">Create your profile</string>
+    <string name="invalid_email_or_password">Invalid email or password</string>
+    <string name="email_required_error">Email is required</string>
+    <string name="invalid_email">Enter a valid email address</string>
+    <string name="password_required_error">Password is required</string>
+    <string name="password_mismatch">Passwords do not match</string>
+    <string name="confirm_password_required_error">Confirm password is required</string>
+    <string name="password_length_error">Password must be longer than 6 characters</string>
+    <string name="username_required_error">Username is required</string>
+    <string name="username_no_spaces_error">Username must not contain spaces</string>
+    <string name="account_created_success">Account created successfully</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="nav_header_subtitle_default">control your money</string>
+
+    <string name="add_subscription_title">Add New Subscription</string>
+    <string name="subscription_name">Subscription Name</string>
+    <string name="subscription_price">Price</string>
+    <string name="billing_cycle">Billing Cycle</string>
+    <string name="next_billing_date">Next Billing Date (yyyy-MM-dd)</string>
+    <string name="save_subscription">Save Subscription</string>
+    <string name="subscription_saved">Subscription Saved Successfully</string>
+
+    <string name="add_savings_goal_title">Add New Savings Goal</string>
+    <string name="goal_title">Goal Title</string>
+    <string name="target_amount">Target Amount</string>
+    <string name="current_amount">Current Amount</string>
+    <string name="save_savings_goal">Save Savings Goal</string>
+    <string name="savings_goal_saved">Savings Goal Saved Successfully</string>
+
+    <string name="invalid_amount">Enter a valid amount</string>
+    <string name="image_url_optional">Image URL (optional)</string>
+    <string name="expense_title_required_error">Expense title is required</string>
+    <string name="expense_amount_required_error">Expense amount is required</string>
+    <string name="expense_amount_invalid_error">Expense amount must be a positive number</string>
+
+    <string name="subscription_name_required_error">Subscription name is required</string>
+    <string name="subscription_price_required_error">Subscription price is required</string>
+    <string name="subscription_price_invalid_error">Subscription price must be a positive number</string>
+    <string name="subscription_date_required_error">Next billing date is required</string>
+    <string name="invalid_date_format">Date must be in yyyy-MM-dd format (example: 2026-12-31)</string>
+    <string name="subscription_future_date_error">Next billing date must be in the future</string>
+
+    <string name="goal_title_required_error">Goal title is required</string>
+    <string name="goal_target_required_error">Target amount is required</string>
+    <string name="goal_current_required_error">Current amount is required</string>
+    <string name="goal_target_invalid_error">Target amount must be a positive number</string>
+    <string name="goal_current_invalid_error">Current amount must be zero or more</string>
+    <string name="goal_current_exceeds_target_error">Current amount cannot exceed target amount</string>
+
+    <string name="invalid_google_image_url">Use a valid Google image URL</string>
 </resources>

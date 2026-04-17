@@ -15,6 +15,8 @@ class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
+    private val visibleCategories = mutableListOf<Category>()
+    private lateinit var categoryAdapter: CategoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,12 +29,25 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        categoryAdapter = CategoryAdapter(visibleCategories)
+        binding.rvCategories.layoutManager = LinearLayoutManager(context)
+        binding.rvCategories.adapter = categoryAdapter
+        refreshDashboard()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        if (::categoryAdapter.isInitialized) {
+            refreshDashboard()
+            categoryAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun refreshDashboard() {
         val totalSpent = DataManager.expenses.sumOf { it.amount }
         binding.tvTotalSpending.text = "$${String.format("%.2f", totalSpent)}"
-
-        binding.rvCategories.layoutManager = LinearLayoutManager(context)
-        binding.rvCategories.adapter = CategoryAdapter(DataManager.categories)
+        visibleCategories.clear()
+        visibleCategories.addAll(DataManager.categories.filter { it.spent > 0.0 })
     }
 
     override fun onDestroyView() {

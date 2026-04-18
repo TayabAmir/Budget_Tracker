@@ -91,6 +91,7 @@ class AddSubscriptionActivity : AppCompatActivity() {
             price = price,
             billingCycle = billingCycle,
             nextBillingDate = nextBillingDate,
+            nextBillingTimestamp = parsedDate.time,
             imageUrl = normalizedImageUrl
         )
 

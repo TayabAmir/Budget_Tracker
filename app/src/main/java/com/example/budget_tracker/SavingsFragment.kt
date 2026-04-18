@@ -1,5 +1,6 @@
 package com.example.budget_tracker
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,9 +30,18 @@ class SavingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = SavingsAdapter(DataManager.savingsGoals)
+        adapter = SavingsAdapter(DataManager.savingsGoals) { goal ->
+            val intent = Intent(requireContext(), AddSavingsGoalActivity::class.java)
+            intent.putExtra("GOAL_ID", goal.id)
+            startActivity(intent)
+        }
         binding.rvSavings.layoutManager = LinearLayoutManager(context)
         binding.rvSavings.adapter = adapter
+
+        binding.fabAddSavings.setOnClickListener {
+            val intent = Intent(requireContext(), AddSavingsGoalActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {
@@ -46,7 +56,7 @@ class SavingsFragment : Fragment() {
         _binding = null
     }
 
-    class SavingsAdapter(private val goals: List<SavingsGoal>) :
+    class SavingsAdapter(private val goals: List<SavingsGoal>, private val onItemClick: (SavingsGoal) -> Unit) :
         RecyclerView.Adapter<SavingsAdapter.ViewHolder>() {
 
         class ViewHolder(val binding: ItemSavingsBinding) : RecyclerView.ViewHolder(binding.root)
@@ -72,6 +82,10 @@ class SavingsFragment : Fragment() {
                     .into(holder.binding.ivGoalIcon)
             } else {
                 holder.binding.ivGoalIcon.setImageResource(android.R.drawable.ic_menu_save)
+            }
+
+            holder.itemView.setOnClickListener {
+                onItemClick(goal)
             }
         }
 

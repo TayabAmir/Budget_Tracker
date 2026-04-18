@@ -73,7 +73,17 @@
             android:id="@+id/btnSaveGoal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="@string/save_savings_goal" />
+
+        <Button
+            android:id="@+id/btnDeleteGoal"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_savings_goal"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone" />
 
     </LinearLayout>
 </ScrollView>

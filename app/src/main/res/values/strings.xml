@@ -38,6 +38,7 @@
     <string name="target_amount">Target Amount</string>
     <string name="current_amount">Current Amount</string>
     <string name="save_savings_goal">Save Savings Goal</string>
+    <string name="delete_savings_goal">Delete Savings Goal</string>
     <string name="savings_goal_saved">Savings Goal Saved Successfully</string>
 
     <string name="invalid_amount">Enter a valid amount</string>

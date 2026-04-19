@@ -3,26 +3,35 @@ package com.example.budget_tracker
 import java.util.Calendar
 
 object DataManager {
-    val expenses = mutableListOf<Expense>()
-    val subscriptions = mutableListOf<Subscription>()
-    val categories = mutableListOf<Category>()
-    val savingsGoals = mutableListOf<SavingsGoal>()
+    private val allExpenses = mutableListOf<Expense>()
+    private val allSubscriptions = mutableListOf<Subscription>()
+    private val allCategories = mutableListOf<Category>()
+    private val allSavingsGoals = mutableListOf<SavingsGoal>()
     private val users = mutableListOf<AppUser>()
 
     var currentUser: AppUser? = null
         private set
 
-    var globalLimit: Double = 2000.0
+    val expenses: List<Expense>
+        get() = allExpenses.filter { it.userId == currentUser?.id }
 
-    init {
-        categories.add(Category("Food", 400.0))
-        categories.add(Category("Transport", 200.0))
-        categories.add(Category("Entertainment", 300.0))
-        categories.add(Category("Shopping", 400.0))
-        categories.add(Category("Subscription", 700.0))
-    }
+    val subscriptions: List<Subscription>
+        get() = allSubscriptions.filter { it.userId == currentUser?.id }
+
+    val categories: List<Category>
+        get() = allCategories.filter { it.userId == currentUser?.id }
+
+    val savingsGoals: List<SavingsGoal>
+        get() = allSavingsGoals.filter { it.userId == currentUser?.id }
+
+    var globalLimit: Double
+        get() = currentUser?.globalLimit ?: 2000.0
+        set(value) {
+            currentUser?.globalLimit = value
+        }
 
     fun addExpense(expense: Expense): Boolean {
+        val user = currentUser ?: return false
         val currentTotalSpent = expenses.sumOf { it.amount }
         if (currentTotalSpent + expense.amount > globalLimit) {
             return false
@@ -34,27 +43,27 @@ object DataManager {
             return false
         }
 
-        expenses.add(expense)
+        allExpenses.add(expense.copy(userId = user.id))
         updateCategorySpent(expense.category, expense.amount)
-        currentUser?.let { it.balance -= expense.amount }
+        user.balance -= expense.amount
         return true
     }
 
     fun deleteExpense(expenseId: Int) {
-        val expense = expenses.find { it.id == expenseId } ?: return
-        expenses.remove(expense)
+        val expense = allExpenses.find { it.id == expenseId && it.userId == currentUser?.id } ?: return
+        allExpenses.remove(expense)
         updateCategorySpent(expense.category, -expense.amount)
         currentUser?.let { it.balance += expense.amount }
 
         expense.linkedSubscriptionId?.let { subId ->
-            subscriptions.removeAll { it.id == subId }
+            allSubscriptions.removeAll { it.id == subId && it.userId == currentUser?.id }
         }
     }
 
     fun updateExpense(updatedExpense: Expense): Boolean {
-        val index = expenses.indexOfFirst { it.id == updatedExpense.id }
+        val index = allExpenses.indexOfFirst { it.id == updatedExpense.id && it.userId == currentUser?.id }
         if (index != -1) {
-            val oldExpense = expenses[index]
+            val oldExpense = allExpenses[index]
             val currentTotalWithoutOld = expenses.sumOf { it.amount } - oldExpense.amount
             if (currentTotalWithoutOld + updatedExpense.amount > globalLimit) {
                 return false
@@ -76,14 +85,13 @@ object DataManager {
             updateCategorySpent(oldExpense.category, -oldExpense.amount)
             currentUser?.let { it.balance += oldExpense.amount }
             
-            expenses[index] = updatedExpense
+            allExpenses[index] = updatedExpense.copy(userId = currentUser!!.id)
             updateCategorySpent(updatedExpense.category, updatedExpense.amount)
             currentUser?.let { it.balance -= updatedExpense.amount }
 
             // Sync with subscription if linked
             updatedExpense.linkedSubscriptionId?.let { subId ->
-                subscriptions.find { it.id == subId }?.let { sub ->
-                    // Remove "Subscription: " prefix if present in the expense title for the sub name
+                allSubscriptions.find { it.id == subId && it.userId == currentUser?.id }?.let { sub ->
                     val subName = if (updatedExpense.title.startsWith("Subscription: ")) {
                         updatedExpense.title.removePrefix("Subscription: ")
                     } else {
@@ -94,9 +102,9 @@ object DataManager {
                         name = subName,
                         price = updatedExpense.amount
                     )
-                    val subIndex = subscriptions.indexOf(sub)
+                    val subIndex = allSubscriptions.indexOf(sub)
                     if (subIndex != -1) {
-                        subscriptions[subIndex] = updatedSub
+                        allSubscriptions[subIndex] = updatedSub
                     }
                 }
             }
@@ -106,38 +114,42 @@ object DataManager {
     }
 
     fun addSubscription(subscription: Subscription) {
-        subscriptions.add(subscription)
+        currentUser?.let {
+            allSubscriptions.add(subscription.copy(userId = it.id))
+        }
     }
 
     fun toggleSubscriptionActive(subscriptionId: Int) {
-        subscriptions.find { it.id == subscriptionId }?.let {
+        allSubscriptions.find { it.id == subscriptionId && it.userId == currentUser?.id }?.let {
             it.isActive = !it.isActive
         }
     }
 
     fun addSavingsGoal(goal: SavingsGoal) {
-        savingsGoals.add(goal)
+        currentUser?.let {
+            allSavingsGoals.add(goal.copy(userId = it.id))
+        }
     }
 
     fun updateSavingsGoal(updatedGoal: SavingsGoal) {
-        val index = savingsGoals.indexOfFirst { it.id == updatedGoal.id }
+        val index = allSavingsGoals.indexOfFirst { it.id == updatedGoal.id && it.userId == currentUser?.id }
         if (index != -1) {
-            savingsGoals[index] = updatedGoal
+            allSavingsGoals[index] = updatedGoal.copy(userId = currentUser!!.id)
         }
     }
 
     fun deleteSavingsGoal(goalId: Int) {
-        savingsGoals.removeAll { it.id == goalId }
+        allSavingsGoals.removeAll { it.id == goalId && it.userId == currentUser?.id }
     }
 
     private fun updateCategorySpent(categoryName: String, amount: Double) {
-        categories.find { it.name == categoryName }?.let {
+        val user = currentUser ?: return
+        allCategories.find { it.name == categoryName && it.userId == user.id }?.let {
             it.spent += amount
         } ?: run {
-            // Add category if not exists (e.g. for dynamic categories)
-            val newCat = Category(categoryName, 500.0)
+            val newCat = Category(user.id, categoryName, 500.0)
             newCat.spent = amount
-            categories.add(newCat)
+            allCategories.add(newCat)
         }
     }
 
@@ -168,9 +180,11 @@ object DataManager {
 
     fun checkAndProcessSubscriptions() {
         val now = System.currentTimeMillis()
-        subscriptions.filter { it.isActive && it.nextBillingTimestamp <= now }.forEach { sub ->
+        val user = currentUser ?: return
+        allSubscriptions.filter { it.userId == user.id && it.isActive && it.nextBillingTimestamp <= now }.forEach { sub ->
             val expense = Expense(
-                id = (expenses.maxOfOrNull { it.id } ?: 0) + 1,
+                id = (allExpenses.maxOfOrNull { it.id } ?: 0) + 1,
+                userId = user.id,
                 title = "Subscription: ${sub.name}",
                 amount = sub.price,
                 category = "Subscription",
@@ -179,13 +193,11 @@ object DataManager {
                 linkedSubscriptionId = sub.id
             )
             if (addExpense(expense)) {
-                // Update next billing date
                 val cal = Calendar.getInstance()
                 cal.timeInMillis = sub.nextBillingTimestamp
                 if (sub.billingCycle == "Monthly") cal.add(Calendar.MONTH, 1)
                 else cal.add(Calendar.YEAR, 1)
                 sub.nextBillingTimestamp = cal.timeInMillis
-                // Update date string (simple format for demo)
                 sub.nextBillingDate = java.text.SimpleDateFormat("yyyy-MM-dd").format(cal.time)
             }
         }
@@ -213,8 +225,17 @@ object DataManager {
             password = password
         )
         users.add(newUser)
+        initializeUserData(newUser)
         currentUser = newUser
         return null
+    }
+
+    private fun initializeUserData(user: AppUser) {
+        allCategories.add(Category(user.id, "Food", 400.0))
+        allCategories.add(Category(user.id, "Transport", 200.0))
+        allCategories.add(Category(user.id, "Entertainment", 300.0))
+        allCategories.add(Category(user.id, "Shopping", 400.0))
+        allCategories.add(Category(user.id, "Subscription", 700.0))
     }
 
     fun signOut() {

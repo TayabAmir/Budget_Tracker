@@ -9,7 +9,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_centerInParent="true"
-        android:src="@android:drawable/ic_menu_save"
+        android:src="@drawable/ic_budget_logo"
         android:contentDescription="App Logo" />
 
     <TextView

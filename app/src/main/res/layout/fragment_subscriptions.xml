@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Subscriptions"
+            android:textColor="#E0E0E0"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -24,6 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Active Only"
+            android:textColor="#BDBDBD"
+            android:buttonTint="#BDBDBD"
             android:checked="false" />
     </LinearLayout>
 
@@ -31,12 +34,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Filter by upcoming days:"
+        android:textColor="#BDBDBD"
         android:layout_marginTop="8dp" />
 
     <Spinner
         android:id="@+id/spinnerDays"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/search_bg"
+        android:padding="8dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSubscriptions"

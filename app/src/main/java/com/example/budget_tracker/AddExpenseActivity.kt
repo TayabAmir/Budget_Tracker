@@ -69,6 +69,7 @@ class AddExpenseActivity : AppCompatActivity() {
 
         val date = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
         val timestamp = System.currentTimeMillis()
+        val user = DataManager.currentUser ?: return
 
         if (editingExpense != null) {
             val updated = editingExpense!!.copy(
@@ -87,7 +88,7 @@ class AddExpenseActivity : AppCompatActivity() {
             val id = (DataManager.expenses.maxOfOrNull { it.id } ?: 0) + 1
             var subId: Int? = null
             
-            val newExpense = Expense(id, title, amount, category, date, timestamp, imageUrl.ifBlank { null }, subId)
+            val newExpense = Expense(id, user.id, title, amount, category, date, timestamp, imageUrl.ifBlank { null }, subId)
             
             if (DataManager.addExpense(newExpense)) {
                 if (isSubscription) {
@@ -96,6 +97,7 @@ class AddExpenseActivity : AppCompatActivity() {
                     cal.add(Calendar.MONTH, 1)
                     val newSub = Subscription(
                         id = actualSubId,
+                        userId = user.id,
                         name = title,
                         price = amount,
                         billingCycle = "Monthly",
@@ -105,11 +107,9 @@ class AddExpenseActivity : AppCompatActivity() {
                     )
                     DataManager.addSubscription(newSub)
                     
-                    // Link the subId back to the expense if possible (requires updating the expense in the list)
-                    val index = DataManager.expenses.indexOf(newExpense)
-                    if (index != -1) {
-                        DataManager.expenses[index] = newExpense.copy(linkedSubscriptionId = actualSubId)
-                    }
+                    // Link the subId back to the expense
+                    val updatedExpense = newExpense.copy(linkedSubscriptionId = actualSubId)
+                    DataManager.updateExpense(updatedExpense)
                 }
                 Toast.makeText(this, "Expense saved", Toast.LENGTH_SHORT).show()
                 finish()

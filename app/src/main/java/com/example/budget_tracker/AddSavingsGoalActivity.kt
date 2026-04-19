@@ -48,6 +48,8 @@ class AddSavingsGoalActivity : AppCompatActivity() {
         val currentAmountValue = binding.etCurrentAmount.text?.toString()?.trim().orEmpty()
         val imageUrl = binding.etImageUrl.text?.toString()?.trim().orEmpty()
 
+        val user = DataManager.currentUser ?: return
+
         if (title.isBlank()) {
             Toast.makeText(this, getString(R.string.goal_title_required_error), Toast.LENGTH_SHORT).show()
             return
@@ -90,6 +92,7 @@ class AddSavingsGoalActivity : AppCompatActivity() {
         if (editingGoalId != -1) {
             val updatedGoal = SavingsGoal(
                 id = editingGoalId,
+                userId = user.id,
                 title = title,
                 targetAmount = targetAmount,
                 currentAmount = currentAmount,
@@ -100,6 +103,7 @@ class AddSavingsGoalActivity : AppCompatActivity() {
         } else {
             val newGoal = SavingsGoal(
                 id = (DataManager.savingsGoals.maxOfOrNull { it.id } ?: 0) + 1,
+                userId = user.id,
                 title = title,
                 targetAmount = targetAmount,
                 currentAmount = currentAmount,

@@ -12,11 +12,11 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginTop="32dp"
             android:contentDescription="App icon"
-            android:src="@android:drawable/ic_menu_save" />
+            android:src="@drawable/ic_budget_logo" />
 
         <TextView
             android:layout_width="wrap_content"

@@ -35,6 +35,8 @@ class AddSubscriptionActivity : AppCompatActivity() {
         val billingCycle = binding.spinnerBillingCycle.selectedItem?.toString().orEmpty()
         val imageUrl = binding.etImageUrl.text?.toString()?.trim().orEmpty()
 
+        val user = DataManager.currentUser ?: return
+
         if (name.isBlank()) {
             Toast.makeText(this, getString(R.string.subscription_name_required_error), Toast.LENGTH_SHORT).show()
             return
@@ -86,7 +88,8 @@ class AddSubscriptionActivity : AppCompatActivity() {
         }
 
         val newSubscription = Subscription(
-            id = DataManager.subscriptions.size + 1,
+            id = (DataManager.subscriptions.maxOfOrNull { it.id } ?: 0) + 1,
+            userId = user.id,
             name = name,
             price = price,
             billingCycle = billingCycle,
